@@ -82,6 +82,27 @@ router.put('/:id', async (req, res) => {
 	}
 })
 
+// @route     DELETE api/contacts/:id
+// @desc      Delete todo
+router.delete('/:id', async (req, res) => {
+
+	try {
+
+		let contact = await Todo.findById(req.params.id);
+
+		if(!contact) return res.status(404).json({ msg: '삭제할 항목을 찾을 수 없습니다.' });
+
+		await Todo.findByIdAndRemove(req.params.id);
+
+		res.json({ msg: `${req.user.id} 가 삭제되었습니다.` });
+
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+
+});
+
 module.exports = router;
 
 
