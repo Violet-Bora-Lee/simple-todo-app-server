@@ -8,7 +8,7 @@ const Todo = require('../models/Todo');
 // @desc			Get all todos
 router.get('/', async (req, res) => {
 	try {
-		const todos = await Todo.find();
+		const todos = await Todo.find().sort({ date: -1 });
 		res.json(todos);
 	} catch (err) {
 		console.error(err.message);
