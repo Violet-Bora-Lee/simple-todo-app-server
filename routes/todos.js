@@ -49,6 +49,38 @@ router.post('/', [
 		}
 	}
 );
+// @route     PUT api/todos/:id
+// @desc      Update todo
+router.put('/:id', async (req, res) => {
+	const { title, description, deadline, priority, done } = req.body;
+
+	const todoFields = {};
+	if(title) todoFields.title = title;
+	if(description) todoFields.description = description;
+	if(deadline) todoFields.deadline = deadline;
+	if(priority) todoFields.priority = priority;
+	if(done) todoFields.done = done;
+
+	try {
+	  let todo = await Todo.findById(req.params.id);
+
+	  if(!todo) {
+	  	return res.status(404).json({ msg: '해당하는 할 일이 없습니다.'});
+		}
+
+	  todo = await Todo.findByIdAndUpdate(
+	  	req.params.id,
+			{ $set: todoFields },
+			{ new: true }
+		);
+
+	  res.json(todo);
+
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+})
 
 module.exports = router;
 
