@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const sevenDaysInMilliseconds =7*24*60*60*1000;
-
 const TodoScheme = mongoose.Schema({
 	title: {
 		type: String,
@@ -11,8 +9,7 @@ const TodoScheme = mongoose.Schema({
 		type: String
 	},
 	deadline : {
-		type: Date,
-		default: Date.now() + sevenDaysInMilliseconds
+		type: String
 	},
 	priority: {
 		type: String,
