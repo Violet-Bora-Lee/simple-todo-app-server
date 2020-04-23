@@ -59,7 +59,11 @@ router.put('/:id', async (req, res) => {
 	if(description) todoFields.description = description;
 	if(deadline) todoFields.deadline = deadline;
 	if(priority) todoFields.priority = priority;
-	if(done) todoFields.done = done;
+	if(done === true) {
+      todoFields.done = true;
+	} else {
+	  todoFields.done = false;
+	}
 
 	try {
 	  let todo = await Todo.findById(req.params.id);
